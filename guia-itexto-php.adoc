@@ -1,0 +1,22 @@
+= Guia itexto de PHP
+Henrique Lobo Weissmann <kico@itexto.com.br>, (entre seu nome e e-mail aqui)
+:doctype: book
+:revnumber: 1.0
+:revdate: 9/4/2017
+:revremark: Primeira edição
+:description: Guia itexto de PHP
+:toc:
+:toc-title: Índice
+:footer: itexto Consultoria - http://www.itexto.com.br
+:toc-levels: 7
+:homepage: http://www.itexto.com.br
+
+== Introdução
+
+Com o passar do tempo começamos a notar a necessidade de nos aprofundarmos na linguagem PHP e em todo o ecossistema que a envolve. Por esta razão resolvemos escrever este guia: um esforço coletivo no qual iremos buscar a criação de um material de referência que inicialmente visa atender nossas demandas de conhecimento internas para, posteriormente, quem sabe, atender o público geral também. 
+
+Este é apenas um esforço inicial, sendo assim não o leve tão a sério, ok?
+
+include::01-a-linguagem/indice.adoc[]
+
+include::bibliografia.adoc[]

@@ -1,0 +1,5 @@
+== Variáveis e estruturas de dados essenciais
+
+Aqui entra o texto sobre como declarar variáveis em PHP, qual o tipo de tipagem, etc.
+
+Entra também a descrição de arrays em php, que é um conceito fundamental.

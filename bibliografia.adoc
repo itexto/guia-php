@@ -1,0 +1,5 @@
+== Bibliografia
+
+[bibliography]
+
+- [[[doc-oficial]]] - Documentação Oficial da Linguagem PHP - http://php.net/docs.php
