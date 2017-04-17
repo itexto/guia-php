@@ -1,5 +1,167 @@
-== Variáveis e estruturas de dados essenciais
+== Variáveis
 
-Aqui entra o texto sobre como declarar variáveis em PHP, qual o tipo de tipagem, etc.
+Variáveis em PHP são representadas pelo caractere `$` seguido por seu nome, que deve começar com o caractere `_` ou uma letra, seguido de mais letras ou números.
 
-Entra também a descrição de arrays em php, que é um conceito fundamental.
+Importante salientar que o nome de variáveis em PHP é case sensitive, logo há duas variáveis no trecho a seguir:
+
+....
+$variavel = "Sou eu";
+$Variavel = "Não, sou eu!";
+$1invalida = "Não existo"; # não pode: começou com número!
+....
+
+=== Definindo valores e referências
+
+O modo mais comum de declararmos variáveis em PHP é fornecendo seu nome e um valor, tal como no exemplo a seguir:
+
+....
+$var = 34; // valor 34 para $var
+....
+
+Entretanto, uma variável também pode não ter um valor atribuido a si, mas sim outra variável, isto é, uma referência (muito similar aos ponteiros do C).
+
+Veja o exemplo a seguir:
+
+....
+$original = "Sou eu";
+$referencia = &$original;
+$referencia = "Vou mudar original";
+echo $original; # imprime "Vou mudar original"
+....
+
+Neste caso, `$original` e `$referencia` apontam para o mesmo endereço de memória. Quando alteramos o valor de `$referencia` estamos, na realidade, alterando também o valor de `$original` portanto.
+
+=== Escopo
+
+É definido pelo local no qual a variável é declarada. Se for em um script, ela estará visível globalmente, tal como no exemplo a seguir:
+
+....
+$eu = "PHP";
+include "script.php"; # $eu estará visível também no arquivo script.php
+....
+
+Se a variável for definida em uma função, esta só é visível dentro do corpo desta função, tal como no exemplo a seguir:
+
+....
+function soma ($a, $b) {
+  $resultado = $a + $b;
+  return $resultado;
+}
+
+echo $resultado; // erro, $resultado só existe em soma
+....
+
+No entanto, uma função pode acessar variáveis globais, tal como no exemplo a seguir:
+
+....
+$a = 4;
+$b = 6;
+
+function soma() {
+  return $a + $b; // Ok: $a e $b existem no script.
+}
+
+soma(); # retorna 10.
+....
+
+==== Palavra chave `global`
+
+E se quisermos usar variáveis globais dentro de uma função? Usamos a palavra chave `global`. Veja o exemplo a seguir:
+
+....
+$a = 4; $b = 6;
+
+function soma() {
+  global $a; #referencio $a global e não interno
+  global $b; #referencio $b global e nao interno
+  return $a + $b;
+}
+
+echo soma(); // imprime 10.
+
+// Agora, sem global
+
+function somaInterna() {
+  $a = 3; $b = 5;
+  return $a + $b;
+}
+
+echo somaInterna(); // Imprime 8
+....
+
+===== Algo que pode ser útil: $GLOBALS
+
+Pode ser que você precise conhecer todas as variáveis globais presentes em seu script. Para tal, basta usar o array publico $GLOBALS.
+
+=== Variáveis estáticas
+
+PHP permite a criação de variáveis estáticas, ou seja, aquelas cujo valor não é perdido após a execução do seu escopo. Nada melhor que um exemplo para ilustrar seu funcionamento:
+
+....
+function incremente() {
+  static $valor = 0;
+  $valor++;
+  echo $valor;
+}
+
+incremente(); // imprime 1
+incremente(); // imprime 2
+incremente(); // imprime 3
+....
+
+Como pode ser visto no exemplo, o valor da variável não é perdido após finalizado seu escopo. Como seria a execução sem static?
+
+....
+function incremente() {
+   $valor = 0;
+   $valor++;
+   echo $valor;
+}
+
+incremente(); // imprime 1
+incremente(); // imprime 1...
+incremente(); //imprime... 1.
+....
+
+== Constantes
+
+É o identificador para um valor simples. Como o próprio nome diz, é o contrário da variável, ou seja, uma vez definido o valor para aquele endereço de memória, este nunca mais poderá ser alterado durante a execução do script.
+
+=== Sintaxe
+
+Usamos a função `define` para criar uma constante. Esta recebe dois parâmetros. O primeiro é o nome da constante, o segundo, seu valor.
+
+Por convenção, constantes sempre são representadas em letras maiúsculas. Segue um exemplo simples.
+
+....
+define("PI", 3.141592);
+....
+
+Ao contrário de variáveis, constantes são acessadas sem a necessidade do caractere `$`. Sendo assim, se quisermos imprimir a constante acima, basta executar o exemplo a seguir:
+
+....
+echo PI; // imprime 3.141592
+....
+
+Também podemos definir constantes usando a palavra chave `const`, tal como exposto a seguir:
+
+....
+const PI = 3.14;
+echo PI; // 3.14 é impresso.
+....
+
+Há alguma diferença entre o uso de `const` e `define()`? Sim, há: se você usar a palavra-chave `const`, obrigatóriamente a constante deverá ser definida no topo do script, mais precisamente no escopo global, pois é definida em tempo de compilação, ou seja, você não pode definir constantes com `const` dentro de funções.
+
+=== Constantes pré-definidas
+
+A lista de constantes pré-definidas pelo PHP pode ser acessada neste link: http://php.net/manual/en/reserved.constants.php
+
+=== Constantes "mágicas"
+
+Há também as constantes cujo valor muda de acordo com o ponto no qual são usadas no script.
+
+Você pode acessá-las neste link: http://php.net/manual/en/language.constants.predefined.php
+
+Elas dizem respeito ao script própriamente dito, tal como `__LINE__`, que retorna a linha atualmente em execução no código fonte, ou `__FILE__`, que representa o arquivo que se encontra em execução.
+
+Por que são "mágicas"? Bom: por que conseguem algo incrível: são constantes que mudam de valor, ora!
