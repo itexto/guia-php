@@ -3,3 +3,7 @@
 [bibliography]
 
 - [[[doc-oficial]]] - Documentação Oficial da Linguagem PHP - http://php.net/docs.php
+
+- [[[doc-oficial-tags]]] - PHP Tags - Documentação oficial do PHP - http://php.net/manual/en/language.basic-syntax.phptags.php
+
+= [[[ieee-754]]] - Padrão IEEE 754 - Wikipedia - https://pt.wikipedia.org/wiki/IEEE_754
